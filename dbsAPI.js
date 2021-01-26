@@ -1,18 +1,32 @@
 const low = require('lowdb');
 const lodashId = require('lodash-id');
 const FileSync = require('lowdb/adapters/FileSync');
-const usersAdapter = new FileSync('usersDB.json');
-const usersDB = low(usersAdapter);
-const chatsAdapter = new FileSync('chatsDB.json');
-const chatsDB = low(chatsAdapter);
+const usersAdapter = new FileSync('db.json');
+const db = low(usersAdapter);
 
-usersDB._.mixin(lodashId);
-chatsDB._.mixin(lodashId);
+db._.mixin(lodashId);
 
-usersDB.defaults({ name: '', password: '', session: {}, chats: [], contacts: {} })
+db.defaults({
+  users: [
+    {
+      login: '',
+      password: '',
+      session: {},
+      chatsIDs: [],
+      contacts: {}
+    }
+  ],
+  chats: [
+    {
+      messages: [{
+        fromID: '',
+        toID: '',
+        message: '',
+        time: 0,
+      }]
+    }
+  ]
+})
   .write()
 
-chatsDB.defaults({ users: [], messages: [] })
-  .write()
-
-module.exports = { usersDB, chatsDB };
+module.exports = db;

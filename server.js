@@ -1,10 +1,7 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const usersDB = require('dbsAPI').usersDB;
-const chatsDB = require('dbsAPI').chatsDB;
-
-let authUser;
+const db = require('dbsAPI');
 
 // const MongoClient = require('mongodb').MongoClient();
 
@@ -16,20 +13,31 @@ let authUser;
 // });
 
 function addMsg(msg) {
-  const chatUsers = chatsDB
-    .get({id: msg.id})
+  const chatUsers = db
+    .get('chats')
+    .find({id: msg.chatID})
     .value()
   if (chatUsers) {
-    chatUsers.push(msg).write();
-  } else {
-    chatsDB
-      .get('users')
-      .push([authUser, msg.user])
-      .write()
-    chatsDB
+    chatUsers
       .get('messages')
       .push(msg)
+      .write();
+  } else {
+    const newChatID = db
+      .get('chats')
+      .insert({
+        messages: [{
+          fromID: msg.fromID,
+          toID: msg.toID,
+          message: msg.message,
+          time: new Date().getTime(),
+        }]
+      })
       .write()
+      .id
+    const user_1 = db
+      .get('users')
+      .find({id: msg.fromID})
   }
 }
 
