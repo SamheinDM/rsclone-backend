@@ -1,5 +1,22 @@
 {
-  "users": [],
+  "users": [
+    {
+      "login": "test",
+      "password": "goodPassword",
+      "session": {},
+      "chatsIDs": [],
+      "contacts": {},
+      "id": "972dcc12-6fb9-4750-b7f7-ecd0b61b0754"
+    },
+    {
+      "login": "test",
+      "password": "goodPassword",
+      "session": {},
+      "chatsIDs": [],
+      "contacts": {},
+      "id": "50feb084-0762-4c4a-b88a-72886ee4da13"
+    }
+  ],
   "chats": [
     {
       "messages": [
@@ -7,69 +24,10 @@
           "fromID": "Serhgf",
           "toID": "asgbdfb",
           "message": "nrjycnsfdbfdb",
-          "time": 1611680179236
-        }
-      ],
-      "id": "7f786b23-9215-43cc-9332-f285318ed093"
-    },
-    {
-      "messages": [
-        {
-          "fromID": "Serhgf",
-          "toID": "asgbdfb",
-          "message": "nrjycnsfdbfdb",
-          "time": 1611680200137
-        },
-        {
-          "message": "nrjycnsfdbfdb",
-          "time": 1611680600976
-        },
-        {
-          "message": "nrjycnsfdbfdb",
-          "time": 1611680819587
-        },
-        {
-          "message": "nrjycnsfdbfdb",
-          "time": 1611680996429
-        },
-        {
-          "message": "nrjycnsfdbfdb",
-          "time": 1611681009459
-        },
-        {
-          "message": "nrjycnsfdbfdb",
-          "time": 1611681015127
-        },
-        {
-          "fromID": "Serhgf",
-          "toID": "asgbdfb",
-          "message": "nrjycnsfdbfdb",
-          "time": 1611681058559
+          "time": 1611681427153
         }
       ],
       "id": "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0"
-    },
-    {
-      "messages": [
-        {
-          "fromID": "Serhgf",
-          "toID": "asgbdfb",
-          "message": "nrjycnsfdbfdb",
-          "time": 1611680275053
-        }
-      ],
-      "id": "da8ddeba-ea0d-44b9-9d17-97d374d666bf"
-    },
-    {
-      "messages": [
-        {
-          "fromID": "Serhgf",
-          "toID": "asgbdfb",
-          "message": "nrjycnsfdbfdb",
-          "time": 1611680284193
-        }
-      ],
-      "id": "15a9492b-47aa-4b2b-abbe-ddbc148a2e92"
     }
   ]
 }
