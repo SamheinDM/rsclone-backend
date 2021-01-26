@@ -8,23 +8,23 @@ db._.mixin(lodashId);
 
 db.defaults({
   users: [
-    {
-      login: '',
-      password: '',
-      session: {},
-      chatsIDs: [],
-      contacts: {}
-    }
+    // {
+    //   login: '',
+    //   password: '',
+    //   session: {},
+    //   chatsIDs: [],
+    //   contacts: {}
+    // }
   ],
   chats: [
-    {
-      messages: [{
-        fromID: '',
-        toID: '',
-        message: '',
-        time: 0,
-      }]
-    }
+    // {
+    //   messages: [{
+    //     fromID: '',
+    //     toID: '',
+    //     message: '',
+    //     time: 0,
+    //   }]
+    // }
   ]
 })
   .write()

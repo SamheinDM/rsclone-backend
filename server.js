@@ -3,75 +3,58 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const db = require('dbsAPI');
 
-// const MongoClient = require('mongodb').MongoClient();
+function addChat(msg) {
+  const newChatID = db
+    .get('chats')
+    .insert({
+      messages: [{
+        fromID: msg.fromID,
+        toID: msg.toID,
+        message: msg.message,
+        time: new Date().getTime(),
+      }]
+    })
+    .write()
+    .id;
 
-// MongoClient.connect('mongodb://127.0.0.1:27017', function(err, db) {
-//   if (err) {throw err}
-//   db.createCollection('users');
-//   db.createCollection('chats');
-//   db.createCollection('messages');
-// });
+  db.get('users')
+    .find({id: msg.fromID})
+    .get('chatsIDs')
+    .push(newChatID)
+    .write();
 
-function addNewChatTo(user) {
-
+  db.get('users')
+    .find({id: msg.toID})
+    .get('chatsIDs')
+    .push(newChatID)
+    .write();
 }
 
-function addMsg(msg) {
+function addMsg(msg, chatID) {
   const chatUsers = db
     .get('chats')
-    .find({id: msg.chatID})
-    .value()
+    .find({id: chatID})
+    .value();
   if (chatUsers) {
-    chatUsers
+    db.get('chats')
+      .find({id: chatID})
       .get('messages')
-      .push(msg)
+      .push({
+        fromID: msg.fromID,
+        toID: msg.toID,
+        message: msg.message,
+        time: new Date().getTime(),
+      })
       .write();
   } else {
-    const newChatID = db
-      .get('chats')
-      .insert({
-        messages: [{
-          fromID: msg.fromID,
-          toID: msg.toID,
-          message: msg.message,
-          time: new Date().getTime(),
-        }]
-      })
-      .write()
-      .id
-    
-    const user_1 = db
-      .get('users')
-      .find({id: msg.fromID})
-      .get('chatsIDs')
-      .push(newChatID)
-      .write()
-
-    const user_2 = db
-      .get('users')
-      .find({id: msg.toID})
-      .get('chatsIDs')
-      .push(newChatID)
-      .write()
+    addChat(msg);
   }
 }
 
 io.on('connection', (socket) => {
-  socket.on('requestInfo', (user) => {
-    console.log('connect ' + user);
-    authUser = user;
-    socket.emit('recieveInfo', 'data');
-  });
-
   socket.on('message', (message) => {
-    const newMessage = {
-      id: 1,
-      user: message.user,
-      message: message.message,
-      time: new Date().getTime(),
-    }
-    addMsg(newMessage);
-    socket.emit('message', newMessage);
+    addMsg(message, message.chatID);
+    // socket.emit('message', message, message.chatID);
   })
 });
 
