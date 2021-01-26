@@ -12,6 +12,10 @@ const db = require('dbsAPI');
 //   db.createCollection('messages');
 // });
 
+function addNewChatTo(user) {
+
+}
+
 function addMsg(msg) {
   const chatUsers = db
     .get('chats')
@@ -35,9 +39,20 @@ function addMsg(msg) {
       })
       .write()
       .id
+    
     const user_1 = db
       .get('users')
       .find({id: msg.fromID})
+      .get('chatsIDs')
+      .push(newChatID)
+      .write()
+
+    const user_2 = db
+      .get('users')
+      .find({id: msg.toID})
+      .get('chatsIDs')
+      .push(newChatID)
+      .write()
   }
 }
 
