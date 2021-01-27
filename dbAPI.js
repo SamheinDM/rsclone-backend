@@ -77,15 +77,43 @@ function addMsg(msg, chatID) {
   }
 }
 
-function authentication(login, password) {
-  const isExist = db
+function isUserExist(login) {
+  return db
     .get('users')
     .find({login: login})
     .value();
-  return isExist && isExist.password === password;
+}
+
+function authentication(login, password) {
+  const user = isUserExist(login);
+  return user && user.password === password;
+}
+
+function getUser(login) {
+  return db
+    .get('users')
+    .find({login: login})
+    .value()
+}
+
+function getUserChats(user) {
+  const chatsID = user.chatsIDs;
+  let chats = [];
+  for (let i = 0; i < chatsID.length; i += 0) {
+    chats.push((i) => {
+      db.get('chats')
+        .find({id: chatsID[i]})
+        .value()
+    });
+  }
+  return chats;
 }
 
 function registration(info) {
+  const isExist = isUserExist(info.login);
+  if (isExist) {
+    return false;
+  }
   const newUser = {
     login: info.login,
     password: info.password,
@@ -104,4 +132,7 @@ function registration(info) {
   return false;
 }
 
-module.exports = { addMsg, registration };
+module.exports.db = db;
+module.exports.addMsg = addMsg;
+module.exports.registration = registration;
+module.exports.getUser = getUser;
