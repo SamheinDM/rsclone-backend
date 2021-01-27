@@ -7,30 +7,14 @@
       "chatsIDs": [],
       "contacts": {},
       "id": "972dcc12-6fb9-4750-b7f7-ecd0b61b0754"
-    },
-    {
-      "login": "test",
-      "password": "goodPassword",
-      "session": {},
-      "chatsIDs": [],
-      "contacts": {},
-      "id": "50feb084-0762-4c4a-b88a-72886ee4da13"
-    },
-    {
-      "login": "test",
-      "password": "goodPassword",
-      "session": {},
-      "chatsIDs": [],
-      "contacts": {},
-      "id": "122e6ecc-8134-48e3-b7e4-6010a3bb34ce"
     }
   ],
   "chats": [
     {
       "messages": [
         {
-          "fromID": "Serhgf",
-          "toID": "asgbdfb",
+          "from": "Serhgf",
+          "to": "asgbdfb",
           "message": "nrjycnsfdbfdb",
           "time": 1611681427153
         }

@@ -19,8 +19,8 @@ db.defaults({
   chats: [
     // {
     //   messages: [{
-    //     fromID: '',
-    //     toID: '',
+    //     from: '',
+    //     to: '',
     //     message: '',
     //     time: 0,
     //   }]
@@ -34,8 +34,8 @@ function addChat(msg) {
     .get('chats')
     .insert({
       messages: [{
-        fromID: msg.fromID,
-        toID: msg.toID,
+        from: msg.from,
+        to: msg.to,
         message: msg.message,
         time: new Date().getTime(),
       }]
@@ -44,13 +44,13 @@ function addChat(msg) {
     .id;
 
   db.get('users')
-    .find({id: msg.fromID})
+    .find({login: msg.from})
     .get('chatsIDs')
     .push(newChatID)
     .write();
 
   db.get('users')
-    .find({id: msg.toID})
+    .find({login: msg.to})
     .get('chatsIDs')
     .push(newChatID)
     .write();
@@ -66,8 +66,8 @@ function addMsg(msg, chatID) {
       .find({id: chatID})
       .get('messages')
       .push({
-        fromID: msg.fromID,
-        toID: msg.toID,
+        from: msg.from,
+        to: msg.to,
         message: msg.message,
         time: new Date().getTime(),
       })
@@ -77,23 +77,19 @@ function addMsg(msg, chatID) {
   }
 }
 
-function isUserExist(login) {
-  return db
-    .get('users')
-    .find({login: login})
-    .value();
-}
-
-function authentication(login, password) {
-  const user = isUserExist(login);
-  return user && user.password === password;
-}
-
 function getUser(login) {
   return db
     .get('users')
     .find({login: login})
     .value()
+}
+
+function authentication(login, password) {
+  const user = getUser(login);
+  if (user) {
+    return user.password === password;
+  }
+  return false;
 }
 
 function getUserChats(user) {
@@ -110,7 +106,7 @@ function getUserChats(user) {
 }
 
 function registration(info) {
-  const isExist = isUserExist(info.login);
+  const isExist = getUser(info.login);
   if (isExist) {
     return false;
   }
@@ -123,16 +119,13 @@ function registration(info) {
   };
   const newUserID = db.get('users')
     .insert(newUser)
-    .write()
-    .id;
-  const isSucsses = authentication(info.login, info.password);
-  if (isSucsses) {
-    return newUserID;
-  }
-  return false;
+    .write();
+  return info.login;
 }
 
 module.exports.db = db;
 module.exports.addMsg = addMsg;
 module.exports.registration = registration;
 module.exports.getUser = getUser;
+module.exports.getUserChats = getUserChats;
+module.exports.authentication = authentication;
