@@ -12,6 +12,21 @@ function authorise(socket, login) {
   socket.emit('authorise', { user: user, chats: chats });
 }
 
+function sendMsg(newMsg, chatID) {
+  const chatUsers = dbAPI.db
+    .get('chats')
+    .find({id: chatID})
+    .get('users')
+    .value();
+  for (let i = 0; i < chatUsers.length; i += 1) {
+    const userIndex = usersOnline.findIndex((elem) => elem.login === chatUsers[i]);
+    const isUserOnline = userIndex !== -1;
+    if (isUserOnline) {
+      usersOnline[userIndex].socket.emit('message', newMsg);
+    }
+  }
+}
+
 io.on('connection', (socket) => {
   socket.on('registration', (info) => {
     const newUser = dbAPI.registration(info);
@@ -21,7 +36,7 @@ io.on('connection', (socket) => {
       socket.emit('registration', newUser);
     }
   })
-  
+
   socket.on('authentication', (info) => {
     const authResult = dbAPI.authentication(info);
     if (authResult) {
@@ -32,8 +47,13 @@ io.on('connection', (socket) => {
   })
 
   socket.on('message', (message) => {
-    dbAPI.addMsg(message, message.chatID);
-    // socket.emit('message', message, message.chatID);
+    const newMsg = dbAPI.addMsg(message);
+    sendMsg(newMsg, message.chatID);
+  })
+
+  socket.on('disconnect', () => {
+    const index = usersOnline.findIndex((elem) => elem.socket === socket);
+    usersOnline.splice(index, 1);
   })
 });
 

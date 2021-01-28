@@ -18,9 +18,9 @@ db.defaults({
   ],
   chats: [
     // {
+    //   users: []
     //   messages: [{
     //     from: '',
-    //     to: '',
     //     message: '',
     //     time: 0,
     //   }]
@@ -34,9 +34,9 @@ function addChat(msg) {
     .get('chats')
     .insert({
       messages: [{
-        from: msg.from,
-        to: msg.to,
-        message: msg.message,
+        from: msg.messageObj.from,
+        to: msg.messageObj.to,
+        message: msg.messageObj.message,
         time: new Date().getTime(),
       }]
     })
@@ -56,25 +56,26 @@ function addChat(msg) {
     .write();
 }
 
-function addMsg(msg, chatID) {
+function addMsg(msg) {
   const chatUsers = db
     .get('chats')
-    .find({id: chatID})
+    .find({id: msg.chatID})
     .value();
   if (chatUsers) {
-    db.get('chats')
-      .find({id: chatID})
+    const msgObj = {
+      from: msg.messageObj.from,
+      message: msg.messageObj.message,
+      time: new Date().getTime(),
+    };
+    db
+      .get('chats')
+      .find({id: msg.chatID})
       .get('messages')
-      .push({
-        from: msg.from,
-        to: msg.to,
-        message: msg.message,
-        time: new Date().getTime(),
-      })
+      .push(msgObj)
       .write();
-  } else {
-    addChat(msg);
+    return msgObj;
   }
+  addChat(msg);
 }
 
 function getUser(login) {
