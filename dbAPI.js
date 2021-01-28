@@ -84,10 +84,10 @@ function getUser(login) {
     .value()
 }
 
-function authentication(login, password) {
-  const user = getUser(login);
+function authentication(info) {
+  const user = getUser(info.login);
   if (user) {
-    return user.password === password;
+    return user.password === info.password;
   }
   return false;
 }
@@ -95,12 +95,12 @@ function authentication(login, password) {
 function getUserChats(user) {
   const chatsID = user.chatsIDs;
   let chats = [];
-  for (let i = 0; i < chatsID.length; i += 0) {
-    chats.push((i) => {
-      db.get('chats')
-        .find({id: chatsID[i]})
-        .value()
-    });
+  for (let i = 0; i < chatsID.length; i += 1) {
+    let elem = db
+      .get('chats')
+      .find({id: chatsID[i]})
+      .value()
+    chats.push(elem);
   }
   return chats;
 }

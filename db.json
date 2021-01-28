@@ -7,13 +7,23 @@
       "chatsIDs": [],
       "contacts": {},
       "id": "972dcc12-6fb9-4750-b7f7-ecd0b61b0754"
+    },
+    {
+      "login": "a",
+      "password": "s",
+      "session": {},
+      "chatsIDs": [
+        "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0"
+      ],
+      "contacts": {},
+      "id": "407902ce-26b7-4d6f-9d75-a90b99e55121"
     }
   ],
   "chats": [
     {
       "messages": [
         {
-          "from": "Serhgf",
+          "from": "a",
           "to": "asgbdfb",
           "message": "nrjycnsfdbfdb",
           "time": 1611681427153

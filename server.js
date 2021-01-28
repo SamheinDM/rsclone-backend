@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
       socket.emit('registration', newUser);
     }
   })
-
+  
   socket.on('authentication', (info) => {
     const authResult = dbAPI.authentication(info);
     if (authResult) {
