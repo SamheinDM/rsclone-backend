@@ -13,7 +13,7 @@ db.defaults({
     //   password: '',
     //   session: {},
     //   chatsIDs: [],
-    //   contacts: {}
+    //   contacts: []
     // }
   ],
   chats: [
@@ -29,39 +29,42 @@ db.defaults({
 })
   .write()
 
-function addChat(msg) {
+function addChat(users) {
   const newChatID = db
     .get('chats')
     .insert({
-      messages: [{
-        from: msg.messageObj.from,
-        to: msg.messageObj.to,
-        message: msg.messageObj.message,
-        time: new Date().getTime(),
-      }]
+      users: users,
+      messages: [],
     })
     .write()
     .id;
 
-  db.get('users')
-    .find({login: msg.from})
+  users.forEach((user) => {
+    db.get('users')
+    .find({login: user})
     .get('chatsIDs')
     .push(newChatID)
     .write();
+  });
 
-  db.get('users')
-    .find({login: msg.to})
-    .get('chatsIDs')
-    .push(newChatID)
-    .write();
+  const initialMsg = {
+    chatID: newChatID,
+    messageObj: {
+      from: '',
+      message: '',
+      time: new Date().getTime(),
+    },
+  };
+  const initMsg = addMsg(initialMsg);
+  return { id: newChatID, msg: initMsg };
 }
 
 function addMsg(msg) {
-  const chatUsers = db
+  const chat = db
     .get('chats')
     .find({id: msg.chatID})
     .value();
-  if (chatUsers) {
+  if (chat) {
     const msgObj = {
       from: msg.messageObj.from,
       message: msg.messageObj.message,
@@ -75,7 +78,6 @@ function addMsg(msg) {
       .write();
     return msgObj;
   }
-  addChat(msg);
 }
 
 function getUser(login) {
@@ -116,7 +118,7 @@ function registration(info) {
     password: info.password,
     session: {},
     chatsIDs: [],
-    contacts: {}
+    contacts: [],
   };
   const newUserID = db.get('users')
     .insert(newUser)
@@ -126,6 +128,7 @@ function registration(info) {
 
 module.exports.db = db;
 module.exports.addMsg = addMsg;
+module.exports.addChat = addChat;
 module.exports.registration = registration;
 module.exports.getUser = getUser;
 module.exports.getUserChats = getUserChats;

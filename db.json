@@ -5,9 +5,12 @@
       "password": "goodPassword",
       "session": {},
       "chatsIDs": [
-        "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0"
+        "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0",
+        "259592ea-5d76-402d-8035-87057d836f4c",
+        "b439035b-15c6-4278-b6c2-b5a9a53233a3",
+        "8e2e1384-bcf7-45fe-a5db-101552f8bbe9"
       ],
-      "contacts": {},
+      "contacts": [],
       "id": "972dcc12-6fb9-4750-b7f7-ecd0b61b0754"
     },
     {
@@ -15,17 +18,50 @@
       "password": "s",
       "session": {},
       "chatsIDs": [
-        "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0"
+        "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0",
+        "259592ea-5d76-402d-8035-87057d836f4c",
+        "ad162d55-4bea-412c-a2d3-c458586c95ce",
+        "b439035b-15c6-4278-b6c2-b5a9a53233a3",
+        "8e2e1384-bcf7-45fe-a5db-101552f8bbe9",
+        "2be13e51-8615-4e92-bb57-0e0c1b9961c4"
       ],
-      "contacts": {},
+      "contacts": [
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test",
+        "Samhein",
+        "test"
+      ],
       "id": "407902ce-26b7-4d6f-9d75-a90b99e55121"
     },
     {
       "login": "Samhein",
       "password": "AjitAup12",
       "session": {},
-      "chatsIDs": [],
-      "contacts": {},
+      "chatsIDs": [
+        "ad162d55-4bea-412c-a2d3-c458586c95ce",
+        "2be13e51-8615-4e92-bb57-0e0c1b9961c4"
+      ],
+      "contacts": [],
       "id": "15f1f626-aa7f-474d-94f0-fc4cba9ce93d"
     }
   ],
@@ -178,51 +214,171 @@
         },
         {
           "from": "a",
-          "message": "sdfsdg",
-          "time": 1611858850760
-        },
+          "message": "asffs",
+          "time": 1612198557082
+        }
+      ],
+      "id": "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0"
+    },
+    {
+      "users": [
+        "a",
+        "test"
+      ],
+      "messages": [
         {
-          "from": "test",
-          "message": "sdgsdg",
-          "time": 1611858891014
+          "from": "a",
+          "message": "asf",
+          "time": 1612191511183
         },
         {
           "from": "a",
-          "message": "sdgsdg",
-          "time": 1611859011422
+          "message": "sdf",
+          "time": 1612191518307
         },
         {
           "from": "a",
           "message": "s",
-          "time": 1611859016637
+          "time": 1612191530918
         },
         {
           "from": "a",
-          "message": "fhl.gjk/;l",
-          "time": 1611859020883
+          "message": "s",
+          "time": 1612191551662
         },
         {
           "from": "a",
-          "message": "dfdfn",
-          "time": 1611859028158
+          "message": "a",
+          "time": 1612191749458
         },
         {
           "from": "a",
-          "message": "asdasdfafs",
-          "time": 1611859036458
+          "message": "s",
+          "time": 1612191761568
         },
         {
-          "from": "test",
-          "message": "f,lfhj,.",
-          "time": 1611859064828
+          "from": "a",
+          "message": "g",
+          "time": 1612191770240
         },
         {
-          "from": "test",
-          "message": "fhfgjdftgmkdfghj",
-          "time": 1611859069427
+          "from": "a",
+          "message": "s",
+          "time": 1612191776741
+        },
+        {
+          "from": "a",
+          "message": "sd",
+          "time": 1612191783830
+        },
+        {
+          "from": "a",
+          "message": "x",
+          "time": 1612191903631
+        },
+        {
+          "from": "a",
+          "message": "q",
+          "time": 1612192001884
+        },
+        {
+          "from": "a",
+          "message": "s",
+          "time": 1612192019701
+        },
+        {
+          "from": "a",
+          "message": "w",
+          "time": 1612192128052
+        },
+        {
+          "from": "a",
+          "message": "asf",
+          "time": 1612192461145
+        },
+        {
+          "from": "a",
+          "message": "x",
+          "time": 1612192657039
+        },
+        {
+          "from": "a",
+          "message": "w",
+          "time": 1612192724151
+        },
+        {
+          "from": "a",
+          "message": "g",
+          "time": 1612194743768
         }
       ],
-      "id": "fdfc2425-1ebf-43fb-a414-d0e88c5d2ae0"
+      "id": "259592ea-5d76-402d-8035-87057d836f4c"
+    },
+    {
+      "users": [
+        "a",
+        "Samhein"
+      ],
+      "messages": [
+        {
+          "from": "",
+          "message": "",
+          "time": 1612195026496
+        },
+        {
+          "from": "a",
+          "message": "as",
+          "time": 1612195106690
+        },
+        {
+          "from": "a",
+          "message": "d",
+          "time": 1612197452769
+        }
+      ],
+      "id": "ad162d55-4bea-412c-a2d3-c458586c95ce"
+    },
+    {
+      "users": [
+        "a",
+        "test"
+      ],
+      "messages": [
+        {
+          "from": "",
+          "message": "",
+          "time": 1612195110732
+        }
+      ],
+      "id": "b439035b-15c6-4278-b6c2-b5a9a53233a3"
+    },
+    {
+      "users": [
+        "a",
+        "test"
+      ],
+      "messages": [
+        {
+          "from": "",
+          "message": "",
+          "time": 1612196998077
+        }
+      ],
+      "id": "8e2e1384-bcf7-45fe-a5db-101552f8bbe9"
+    },
+    {
+      "users": [
+        "a",
+        "Samhein"
+      ],
+      "messages": [
+        {
+          "from": "",
+          "message": "",
+          "time": 1612197072179
+        }
+      ],
+      "id": "2be13e51-8615-4e92-bb57-0e0c1b9961c4"
     }
   ]
 }

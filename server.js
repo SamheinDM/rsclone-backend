@@ -46,10 +46,15 @@ io.on('connection', (socket) => {
     }
   })
 
+  socket.on('create_chat', (usersArray) => {
+    const initialMsgObj = dbAPI.addChat(usersArray);
+    sendMsg(initialMsgObj.msg, initialMsgObj.id);
+  });
+
   socket.on('message', (message) => {
     const newMsg = dbAPI.addMsg(message);
     sendMsg(newMsg, message.chatID);
-  })
+  });
 
   socket.on('disconnect', () => {
     const index = usersOnline.findIndex((elem) => elem.socket === socket);
