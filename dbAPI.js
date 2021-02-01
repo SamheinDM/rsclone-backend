@@ -30,33 +30,32 @@ db.defaults({
   .write()
 
 function addChat(users) {
-  const newChatID = db
+  const newChat = db
     .get('chats')
     .insert({
       users: users,
       messages: [],
     })
-    .write()
-    .id;
+    .write();
 
   users.forEach((user) => {
     db.get('users')
     .find({login: user})
     .get('chatsIDs')
-    .push(newChatID)
+    .push(newChat.id)
     .write();
   });
 
   const initialMsg = {
-    chatID: newChatID,
+    chatID: newChat.id,
     messageObj: {
       from: '',
       message: '',
       time: new Date().getTime(),
     },
   };
-  const initMsg = addMsg(initialMsg);
-  return { id: newChatID, msg: initMsg };
+  addMsg(initialMsg);
+  return newChat;
 }
 
 function addMsg(msg) {

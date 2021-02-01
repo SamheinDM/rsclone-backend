@@ -12,7 +12,7 @@ function authorise(socket, login) {
   socket.emit('authorise', { user: user, chats: chats });
 }
 
-function sendMsg(newMsg, chatID) {
+function sendMsg(typeOfMessage, newMsg, chatID) {
   const chatUsers = dbAPI.db
     .get('chats')
     .find({id: chatID})
@@ -22,7 +22,7 @@ function sendMsg(newMsg, chatID) {
     const userIndex = usersOnline.findIndex((elem) => elem.login === chatUsers[i]);
     const isUserOnline = userIndex !== -1;
     if (isUserOnline) {
-      usersOnline[userIndex].socket.emit('message', newMsg);
+      usersOnline[userIndex].socket.emit(typeOfMessage, newMsg);
     }
   }
 }
@@ -47,13 +47,13 @@ io.on('connection', (socket) => {
   })
 
   socket.on('create_chat', (usersArray) => {
-    const initialMsgObj = dbAPI.addChat(usersArray);
-    sendMsg(initialMsgObj.msg, initialMsgObj.id);
+    const newChat = dbAPI.addChat(usersArray);
+    sendMsg('new_chat', newChat, newChat.id);
   });
 
   socket.on('message', (message) => {
     const newMsg = dbAPI.addMsg(message);
-    sendMsg(newMsg, message.chatID);
+    sendMsg('message', newMsg, message.chatID);
   });
 
   socket.on('disconnect', () => {
