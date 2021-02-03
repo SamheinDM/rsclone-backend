@@ -120,7 +120,7 @@ function updateContactList() {
     let contacts = [];
     usersList.forEach((el) => {
       if (el !== users[i].login) {
-        contacts.push(el.login);
+        contacts.push(el);
       }
     });
     db.get('users')
