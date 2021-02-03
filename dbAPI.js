@@ -134,6 +134,23 @@ function updateUser(userObj) {
     .write();
 }
 
+function getPossibleContacts(user) {
+  const userContacts = user.contacts;
+  const usersObjArr = db
+    .get('users')
+    .value();
+  
+  let contacts = [];
+  usersObjArr.forEach((el) => contacts.push(el.login));
+  const userIndex = contacts.indexOf(user);
+  contacts.splice(userIndex, 1);
+  for (let i = 0; i < userContacts.length; i += 1) {
+    const contactIndex = contacts.indexOf(userContacts[i]);
+    contacts.splice(contactIndex, 1);
+  }
+  return contacts;
+}
+
 module.exports.db = db;
 module.exports.addMsg = addMsg;
 module.exports.addChat = addChat;
@@ -142,3 +159,4 @@ module.exports.getUser = getUser;
 module.exports.getUserChats = getUserChats;
 module.exports.authentication = authentication;
 module.exports.updateUser = updateUser;
+module.exports.getPossibleContacts = getPossibleContacts;

@@ -86,6 +86,15 @@
       "deletedChatIDs": [],
       "contacts": [],
       "id": "15f1f626-aa7f-474d-94f0-fc4cba9ce93d"
+    },
+    {
+      "login": "b",
+      "password": "a",
+      "session": {},
+      "chatsIDs": [],
+      "deletedChatIDs": [],
+      "contacts": [],
+      "id": "10f14c90-f02c-43fd-8363-5d30651067c7"
     }
   ],
   "chats": [

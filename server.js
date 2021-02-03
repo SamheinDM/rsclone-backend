@@ -3,6 +3,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const dbAPI = require('./dbAPI');
 
+const PORT = process.env.PORT || 80;
+
 let usersOnline = [];
 
 function authorise(socket, login) {
@@ -26,6 +28,10 @@ function sendMsg(typeOfMessage, newMsg, chatID) {
     }
   }
 }
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/client/index.html');
+});
 
 io.on('connection', (socket) => {
   socket.on('registration', (info) => {
@@ -56,6 +62,11 @@ io.on('connection', (socket) => {
     sendMsg('message', newMsg, message.chatID);
   });
 
+  socket.on('possible_contacts', (user) => {
+    const contacts = dbAPI.getPossibleContacts(user);
+    socket.emit('possible_contacts', contacts);
+  })
+
   socket.on('delete_contact', (userObj) => dbAPI.updateUser(userObj));
 
   socket.on('disconnect', () => {
@@ -64,6 +75,4 @@ io.on('connection', (socket) => {
   })
 });
 
-http.listen(3000, () => {
-  console.log('listening on *:3000');
-});
+http.listen(PORT);
