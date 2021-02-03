@@ -29,8 +29,10 @@ function sendMsg(typeOfMessage, newMsg, chatID) {
   }
 }
 
+app.use(express.static('client'));
+
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/client/index.html');
 });
 
 io.on('connection', (socket) => {
