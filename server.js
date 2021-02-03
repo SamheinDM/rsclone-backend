@@ -56,6 +56,8 @@ io.on('connection', (socket) => {
     sendMsg('message', newMsg, message.chatID);
   });
 
+  socket.on('delete_contact', (userObj) => dbAPI.updateUser(userObj));
+
   socket.on('disconnect', () => {
     const index = usersOnline.findIndex((elem) => elem.socket === socket);
     usersOnline.splice(index, 1);

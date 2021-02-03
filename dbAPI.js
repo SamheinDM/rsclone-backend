@@ -13,6 +13,7 @@ db.defaults({
     //   password: '',
     //   session: {},
     //   chatsIDs: [],
+    //   deletedChatIDs: [],
     //   contacts: []
     // }
   ],
@@ -117,12 +118,20 @@ function registration(info) {
     password: info.password,
     session: {},
     chatsIDs: [],
+    deletedChatIDs: [],
     contacts: [],
   };
   const newUserID = db.get('users')
     .insert(newUser)
     .write();
   return info.login;
+}
+
+function updateUser(userObj) {
+  db.get('users')
+    .find({ login: userObj.login })
+    .assign(userObj)
+    .write();
 }
 
 module.exports.db = db;
@@ -132,3 +141,4 @@ module.exports.registration = registration;
 module.exports.getUser = getUser;
 module.exports.getUserChats = getUserChats;
 module.exports.authentication = authentication;
+module.exports.updateUser = updateUser;
