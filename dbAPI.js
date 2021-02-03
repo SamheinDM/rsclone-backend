@@ -117,12 +117,15 @@ function updateContactList() {
     .get('users')
     .value()
   for (let i =0; i < users.length; i += 1) {
-    const actualList = usersList;
-    actualList.splice(usersList.indexOf(users[i].login), 1);
-    actualList.sort();
+    let contacts = [];
+    usersList.forEach((el) => {
+      if (el !== users[i].login) {
+        contacts.push(el.login);
+      }
+    });
     db.get('users')
       .find({ login: users[i].login })
-      .assign({ contacts: actualList})
+      .assign({ contacts: contacts})
       .write()
   }
 }
