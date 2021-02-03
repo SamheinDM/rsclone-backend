@@ -7,6 +7,7 @@ const db = low(usersAdapter);
 db._.mixin(lodashId);
 
 db.defaults({
+  users_list: [],
   users: [
     // {
     //   login: '',
@@ -108,11 +109,30 @@ function getUserChats(user) {
   return chats;
 }
 
+function updateContactList() {
+  const usersList = db
+    .get('users_list')
+    .value()
+  const users = db
+    .get('users')
+    .value()
+  for (let i =0; i < users.length; i += 1) {
+    db.get('users')
+      .find({ login: users[i].login })
+      .assign({ contacts: usersList})
+      .write()
+  }
+}
+
 function registration(info) {
   const isExist = getUser(info.login);
   if (isExist) {
     return false;
   }
+  db.get('users_list')
+  .push(info.login)
+  .write()
+
   const newUser = {
     login: info.login,
     password: info.password,
@@ -124,6 +144,7 @@ function registration(info) {
   const newUserID = db.get('users')
     .insert(newUser)
     .write();
+  updateContactList();
   return info.login;
 }
 
