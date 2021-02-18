@@ -4,7 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const dbAPI = require('./dbAPI');
 
-const PORT = process.env.PORT || 80;
+const PORT = 8000; //process.env.PORT || 80
 
 let usersOnline = [];
 
@@ -30,11 +30,11 @@ function sendMsg(typeOfMessage, newMsg, chatID) {
   }
 }
 
-app.use(express.static('client'));
+// app.use(express.static('client'));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/client/index.html');
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/client/index.html');
+// });
 
 io.on('connection', (socket) => {
   socket.on('registration', (info) => {
@@ -77,5 +77,7 @@ io.on('connection', (socket) => {
     usersOnline.splice(index, 1);
   })
 });
+
+// app.listen(PORT);
 
 http.listen(PORT);
